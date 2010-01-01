@@ -1,0 +1,31 @@
+name: roy
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 1 * * 0'  # Runs at 00:00 UTC every Sunday
+
+permissions:
+  contents: write
+
+jobs:
+  run-paint:
+    runs-on: ubuntu-latest
+    env:
+      PAINTING: "0000000011111001000100100010001110000000000011100010001001000100011100000000000111000100010010001000000000111110000100000010000111110000000001111100011000000110001111100000000011111001010100101010000000000000100000000001110001000100100010000000000111000100010010001000111000000000001111001000000111110010000000111100000000000000000000000000000000000000000000000000000"
+      NAME: "Roy"
+      EMAIL: "doug@dochne.com"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Paint!
+        run: node roy.mjs
